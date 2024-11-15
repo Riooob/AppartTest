@@ -1,20 +1,58 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <HotelFilter
+      @apply-filters="applyFilters"
+      @clear-filters="clearFilters"
+    />
+    <HotelList
+      :appliedFilters="appliedFilters"
+    />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HotelFilter from '@/components/HotelFilter.vue'
+import HotelList from '@/components/HotelList.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HotelFilter,
+    HotelList
+  },
+  data () {
+    return {
+      appliedFilters: {
+        searchCountry: '',
+        selectedCountries: [],
+        selectedTypes: [],
+        selectedStars: [],
+        minReviews: null,
+        minPrice: null,
+        maxPrice: null
+      }
+    }
+  },
+  methods: {
+    applyFilters (filters) {
+      this.appliedFilters = { ...filters }
+    },
+    clearFilters () {
+      this.appliedFilters = {
+        searchCountry: '',
+        selectedCountries: [],
+        selectedTypes: [],
+        selectedStars: [],
+        minReviews: null,
+        minPrice: null,
+        maxPrice: null
+      }
+    }
   }
 }
 </script>
 
-<style lang="scss">
+<style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
